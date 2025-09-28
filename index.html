@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="vi" x-data="portfolioApp" x-init="init()">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ĐÀO MINH HỒNG – Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio của Đào Minh Hồng: Chuyên gia chuyển đổi số • Cử nhân CNTT."
+    />
+
+    <!-- Tailwind build -->
+    <link rel="stylesheet" href="dist/output.css" />
+
+    <!-- Alpine.js -->
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body class="bg-slate-900 text-gray-100 font-sans scroll-smooth relative">
+    <!-- HEADER -->
+    <header
+      class="sticky top-0 z-50 bg-slate-900/75 backdrop-blur border-b border-white/10"
+    >
+      <div
+        class="container mx-auto flex items-center justify-between px-6 py-4"
+      >
+        <!-- BRAND -->
+        <a href="#home" class="group flex items-center gap-3">
+          <span
+            class="relative inline-grid place-items-center w-11 h-11 rounded-full drop-shadow"
+          >
+            <img
+              src="assets/img/logo.svg"
+              alt="Logo"
+              class="w-9 h-9 rounded-full ring-2 ring-white/10 shadow"
+            />
+            <span
+              class="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-100 transition bg-gradient-to-br from-brand/30 to-accent/20 blur-lg"
+            ></span>
+          </span>
+          <span
+            class="font-extrabold tracking-wide text-white text-base sm:text-lg"
+          >
+            <span
+              class="bg-gradient-to-r from-white via-white to-white/80 bg-[length:300%_300%] bg-clip-text text-transparent animate-[grad_6s_ease_infinite]"
+            >
+              ĐÀO MINH HỒNG
+            </span>
+          </span>
+        </a>
+
+        <!-- Desktop menu -->
+        <nav class="hidden md:flex items-center gap-6 font-medium">
+          <a
+            href="#about"
+            class="text-gray-300 hover:text-white transition"
+            :class="activeSection==='about'     && 'text-blue-500 font-semibold'"
+            >Giới thiệu</a
+          >
+          <a
+            href="#skills"
+            class="text-gray-300 hover:text-white transition"
+            :class="activeSection==='skills'    && 'text-blue-500 font-semibold'"
+            >Kỹ năng</a
+          >
+          <a
+            href="#experience"
+            class="text-gray-300 hover:text-white transition"
+            :class="activeSection==='experience'&& 'text-blue-500 font-semibold'"
+            >Kinh nghiệm</a
+          >
+          <a
+            href="#projects"
+            class="text-gray-300 hover:text-white transition"
+            :class="activeSection==='projects'  && 'text-blue-500 font-semibold'"
+            >Dự án</a
+          >
+          <a
+            href="#gallery"
+            class="text-gray-300 hover:text-white transition"
+            :class="activeSection==='gallery'   && 'text-blue-500 font-semibold'"
+            >Hình ảnh</a
+          >
+          <a
+            href="#contact"
+            class="px-4 py-2 rounded-xl bg-gradient-to-r from-brand to-accent text-slate-900 font-semibold shadow hover:opacity-95"
+            >Liên hệ</a
+          >
+        </nav>
+
+        <!-- Mobile hamburger -->
+        <button
+          class="md:hidden text-gray-300"
+          @click="mobileOpen=!mobileOpen"
+          aria-label="Menu"
+        >
+          ☰
+        </button>
+      </div>
+
+      <!-- Mobile menu -->
+      <div
+        class="md:hidden bg-slate-800/90 px-6 py-4 space-y-3 border-t border-white/10"
+        x-show="mobileOpen"
+        x-transition
+      >
+        <a
+          href="#about"
+          @click="mobileOpen=false"
+          class="block text-gray-300 hover:text-white"
+          :class="activeSection==='about'     && 'text-white font-semibold'"
+          >Giới thiệu</a
+        >
+        <a
+          href="#skills"
+          @click="mobileOpen=false"
+          class="block text-gray-300 hover:text-white"
+          :class="activeSection==='skills'    && 'text-white font-semibold'"
+          >Kỹ năng</a
+        >
+        <a
+          href="#experience"
+          @click="mobileOpen=false"
+          class="block text-gray-300 hover:text-white"
+          :class="activeSection==='experience'&& 'text-white font-semibold'"
+          >Kinh nghiệm</a
+        >
+        <a
+          href="#projects"
+          @click="mobileOpen=false"
+          class="block text-gray-300 hover:text-white"
+          :class="activeSection==='projects'  && 'text-white font-semibold'"
+          >Dự án</a
+        >
+        <a
+          href="#gallery"
+          @click="mobileOpen=false"
+          class="block text-gray-300 hover:text-white"
+          :class="activeSection==='gallery'   && 'text-white font-semibold'"
+          >Hình ảnh</a
+        >
+        <a
+          href="#contact"
+          @click="mobileOpen=false"
+          class="inline-block px-4 py-2 rounded-xl bg-gradient-to-r from-brand to-accent text-slate-900 font-semibold"
+          >Liên hệ</a
+        >
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section id="home" class="relative py-20 overflow-hidden min-h-[560px]">
+      <!-- Blobs nền động -->
+      <div
+        class="pointer-events-none absolute -top-24 -left-24 w-[520px] h-[520px] rounded-full bg-gradient-to-tr from-brand/25 to-accent/20 blur-3xl animate-[pulse-soft_3s_ease-in-out_infinite]"
+      ></div>
+      <div
+        class="pointer-events-none absolute -bottom-24 -right-24 w-[520px] h-[520px] rounded-full bg-gradient-to-tr from-accent/20 to-brand/25 blur-3xl animate-[pulse-soft_3s_ease-in-out_infinite]"
+      ></div>
+
+      <div
+        class="container mx-auto px-6 grid grid-cols-1 min-[700px]:grid-cols-[1.2fr_0.8fr] items-center gap-10 relative"
+      >
+        <!-- Left -->
+        <div>
+          <h1 class="text-3xl md:text-6xl font-black leading-tight mb-4">
+            <span
+              class="block bg-gradient-to-r from-white via-white to-white/50 bg-[length:300%_300%] bg-clip-text text-transparent animate-[grad_6s_ease_infinite]"
+            >
+              Chuyên gia chuyển đổi số.
+            </span>
+            <span class="block text-white/90"
+              >ĐÀO <span class="text-white">MINH</span> HỒNG</span
+            >
+          </h1>
+
+          <p class="text-lg md:text-xl text-gray-300 max-w-2xl">
+            Hỗ trợ, hướng dẫn Chuyển đổi số cho cơ quan/đơn vị; tối ưu quy trình
+            & nền tảng số.
+          </p>
+
+          <div class="flex flex-wrap gap-3 mt-6">
+            <a
+              href="#contact"
+              class="px-6 py-3 rounded-2xl font-bold text-slate-900 bg-gradient-to-r from-brand to-accent shadow hover:opacity-95"
+              >Kết nối ngay</a
+            >
+            <a
+              href="https://daominhhong.id.vn"
+              target="_blank"
+              class="px-6 py-3 rounded-2xl border border-white/15 text-white/90 hover:text-white"
+              >Website</a
+            >
+          </div>
+
+          <!-- Stats (đếm số) -->
+          <div class="mt-8 grid grid-cols-3 gap-4 max-w-xl">
+            <div
+              class="bg-white/5 border border-white/10 rounded-2xl p-4 text-center"
+              x-data="counter(16,'+')"
+              x-init="observe($el)"
+            >
+              <div class="text-2xl font-extrabold" x-text="display"></div>
+              <div class="text-xs text-gray-300/80">Năm kinh nghiệm</div>
+            </div>
+            <div
+              class="bg-white/5 border border-white/10 rounded-2xl p-4 text-center"
+              x-data="counter(20,'+')"
+              x-init="observe($el)"
+            >
+              <div class="text-2xl font-extrabold" x-text="display"></div>
+              <div class="text-xs text-gray-300/80">Dự án triển khai</div>
+            </div>
+            <div
+              class="bg-white/5 border border-white/10 rounded-2xl p-4 text-center"
+              x-data="counter(99,'%')"
+              x-init="observe($el)"
+            >
+              <div class="text-2xl font-extrabold" x-text="display"></div>
+              <div class="text-xs text-gray-300/80">Uptime hệ thống</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right (portrait) -->
+        <div
+          class="justify-self-center min-[700px]:justify-self-end self-start"
+        >
+          <div
+            class="relative p-1 rounded-3xl bg-gradient-to-br from-brand/40 to-accent/40"
+          >
+            <div class="rounded-3xl bg-slate-900 p-2 shadow-xl">
+              <img
+                src="assets/img/avatar.jpg"
+                alt="Ảnh Đào Minh Hồng"
+                class="rounded-2xl w-[360px] h-auto object-cover"
+              />
+            </div>
+            <span
+              class="absolute -z-10 inset-0 rounded-[28px] blur-2xl bg-gradient-to-tr from-brand/25 to-accent/25 animate-[pulse-soft_3s_ease-in-out_infinite]"
+            ></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-20 bg-slate-800">
+      <div class="container mx-auto px-6 grid md:grid-cols-2 gap-10">
+        <div class="bg-slate-900/50 p-6 rounded-xl">
+          <h2 class="text-2xl font-bold mb-4">Giới thiệu</h2>
+          <p>
+            Tôi là <strong>Đào Minh Hồng</strong>, chuyên gia chuyển đổi số. Mục
+            tiêu: <strong>Hỗ trợ, hướng dẫn Chuyển đổi số</strong>.
+          </p>
+          <ul class="list-disc pl-5 mt-4 text-gray-300">
+            <li>Cử nhân CNTT</li>
+            <li>Kỹ năng: HTML, CSS, JavaScript</li>
+          </ul>
+        </div>
+        <div class="bg-slate-900/50 p-6 rounded-xl">
+          <h2 class="text-2xl font-bold mb-4">Liên hệ</h2>
+          <p>📞 0976204408</p>
+          <p>✉️ daohongso2@gmail.com</p>
+          <p>📍 Đồng Nai</p>
+          <p>
+            🌐
+            <a
+              href="https://daominhhong.id.vn"
+              target="_blank"
+              class="underline"
+              >daominhhong.id.vn</a
+            >
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="py-20">
+      <div class="container mx-auto px-6">
+        <h2 class="text-2xl font-bold mb-8">Kỹ năng</h2>
+
+        <!-- HTML 90% -->
+        <div class="mb-5">
+          <div class="mb-1 text-sm text-gray-300">HTML</div>
+          <div
+            class="w-full h-2 bg-slate-700/70 rounded-full overflow-hidden"
+            x-data="progress(90)"
+            x-init="observe($el)"
+          >
+            <div
+              class="h-full bg-gradient-to-r from-brand to-accent rounded-full transition-[width] duration-1000 ease-out"
+              :style="`width:${width}%`"
+            ></div>
+          </div>
+        </div>
+
+        <!-- CSS 80% -->
+        <div class="mb-5">
+          <div class="mb-1 text-sm text-gray-300">CSS</div>
+          <div
+            class="w-full h-2 bg-slate-700/70 rounded-full overflow-hidden"
+            x-data="progress(80)"
+            x-init="observe($el)"
+          >
+            <div
+              class="h-full bg-gradient-to-r from-brand to-accent rounded-full transition-[width] duration-1000 ease-out"
+              :style="`width:${width}%`"
+            ></div>
+          </div>
+        </div>
+
+        <!-- JavaScript 70% -->
+        <div class="mb-5">
+          <div class="mb-1 text-sm text-gray-300">JavaScript</div>
+          <div
+            class="w-full h-2 bg-slate-700/70 rounded-full overflow-hidden"
+            x-data="progress(70)"
+            x-init="observe($el)"
+          >
+            <div
+              class="h-full bg-gradient-to-r from-brand to-accent rounded-full transition-[width] duration-1000 ease-out"
+              :style="`width:${width}%`"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY / CAROUSEL -->
+    <section id="gallery" class="py-20 bg-slate-800">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-2xl font-bold mb-8">Hình ảnh hoạt động</h2>
+        <div
+          class="relative"
+          x-data="{index:0}"
+          x-init="setInterval(()=>{index=(index+1)%4},5000)"
+        >
+          <div class="overflow-hidden rounded-xl">
+            <div
+              class="flex transition-transform duration-700"
+              :style="`transform:translateX(-${index*100}%)`"
+            >
+              <template
+                x-for="(img, i) in ['hoi_nghi.jpg','chuan_hoa.jpg','binh_dan.jpg','thanh_pho.jpg']"
+                :key="i"
+              >
+                <div class="min-w-full">
+                  <img
+                    :src="'assets/img/'+img"
+                    class="mx-auto rounded-xl shadow"
+                  />
+                </div>
+              </template>
+            </div>
+          </div>
+          <button
+            class="absolute top-1/2 left-4 -translate-y-1/2 bg-black/40 text-white px-3 py-1 rounded-full"
+            @click="index = (index-1+4)%4"
+          >
+            ‹
+          </button>
+          <button
+            class="absolute top-1/2 right-4 -translate-y-1/2 bg-black/40 text-white px-3 py-1 rounded-full"
+            @click="index = (index+1)%4"
+          >
+            ›
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-20">
+      <div class="container mx-auto px-6 max-w-xl">
+        <h2 class="text-2xl font-bold mb-6">Kết nối & Trao đổi</h2>
+        <form
+          class="space-y-4"
+          @submit.prevent="alert('Đã nhận thông tin! (demo)')"
+        >
+          <input
+            type="text"
+            placeholder="Họ và tên"
+            class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
+            required
+          />
+          <textarea
+            rows="4"
+            placeholder="Nội dung liên hệ..."
+            class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
+            required
+          ></textarea>
+          <button
+            type="submit"
+            class="bg-gradient-to-r from-brand to-accent text-slate-900 px-6 py-3 rounded-xl font-bold"
+          >
+            Gửi
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 border-t border-slate-700 py-6 text-center">
+      <p>© Đào Minh Hồng • daohongso2@gmail.com</p>
+    </footer>
+
+    <!-- TOP BUTTON -->
+    <button
+      x-cloak
+      x-show="showTop"
+      @click="scrollToTop()"
+      class="fixed bottom-6 right-6 bg-gradient-to-r from-brand to-accent text-slate-900 p-3 rounded-full shadow-lg"
+      x-transition
+    >
+      ↑
+    </button>
+
+    <!-- Alpine components -->
+    <script>
+      document.addEventListener("alpine:init", () => {
+        // App state: header, active menu, top button
+        Alpine.data("portfolioApp", () => ({
+          mobileOpen: false,
+          showTop: false,
+          activeSection: "home",
+          init() {
+            window.addEventListener("scroll", () => this.onScroll());
+          },
+          onScroll() {
+            this.showTop = window.scrollY > 200;
+            const cur = window.scrollY + 150;
+            document.querySelectorAll("section[id]").forEach((s) => {
+              if (cur >= s.offsetTop && cur < s.offsetTop + s.offsetHeight) {
+                this.activeSection = s.id;
+              }
+            });
+          },
+          scrollToTop() {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          },
+        }));
+
+        // Counter: đếm 1 lần khi vào viewport
+        Alpine.data("counter", (to, suffix = "") => ({
+          display: "0" + suffix,
+          _started: false,
+          observe(el) {
+            const io = new IntersectionObserver(
+              (entries) => {
+                if (entries[0].isIntersecting && !this._started) {
+                  this._started = true;
+                  this.start(to, suffix);
+                  io.disconnect();
+                }
+              },
+              { threshold: 0.6 }
+            );
+            io.observe(el);
+          },
+          start(to, suffix) {
+            const duration = 1200; // ms
+            const start = performance.now();
+            const from = 1; // đổi 0 nếu muốn bắt đầu từ 0
+            const step = (now) => {
+              const p = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+              const val = Math.floor(from + (to - from) * eased);
+              this.display = val + suffix;
+              if (p < 1) requestAnimationFrame(step);
+              else this.display = to + suffix;
+            };
+            requestAnimationFrame(step);
+          },
+        }));
+
+        // Progress bar: 0 -> to% rồi dừng
+        Alpine.data("progress", (to) => ({
+          width: 0,
+          _started: false,
+          observe(el) {
+            const io = new IntersectionObserver(
+              (entries) => {
+                if (entries[0].isIntersecting && !this._started) {
+                  this._started = true;
+                  setTimeout(() => (this.width = to), 100);
+                  io.disconnect();
+                }
+              },
+              { threshold: 0.6 }
+            );
+            io.observe(el);
+          },
+        }));
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Alpine cloak */
+[x-cloak] {
+  display: none !important;
+}
+
+/* Layer: components cho hero card và logo ring */
+@layer components {
+  .glass {
+    @apply bg-white/5 border border-white/10 rounded-2xl shadow-inner-soft;
+  }
+  .logo-ring {
+    @apply relative inline-grid place-items-center w-11 h-11 rounded-full;
+  }
+  .logo-ring::before {
+    content: "";
+    @apply absolute inset-0 rounded-full blur-md;
+    background: radial-gradient(
+      60% 60% at 50% 40%,
+      rgba(96, 165, 250, 0.45),
+      rgba(34, 211, 238, 0.25) 60%,
+      transparent 70%
+    );
+    opacity: 0.75;
+  }
+}
