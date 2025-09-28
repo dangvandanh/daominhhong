@@ -246,9 +246,10 @@
       </div>
     </section>
 
-    <!-- ABOUT -->
+    <!-- ABOUT + SKILLS -->
     <section id="about" class="py-20 bg-slate-800">
       <div class="container mx-auto px-6 grid md:grid-cols-2 gap-10">
+        <!-- Giới thiệu -->
         <div class="bg-slate-900/50 p-6 rounded-xl">
           <h2 class="text-2xl font-bold mb-4">Giới thiệu</h2>
           <p>
@@ -257,78 +258,62 @@
           </p>
           <ul class="list-disc pl-5 mt-4 text-gray-300">
             <li>Cử nhân CNTT</li>
-            <li>Kỹ năng: HTML, CSS, JavaScript</li>
+            <li>16+ năm kinh nghiệm triển khai phần mềm và hạ tầng số</li>
           </ul>
         </div>
+
+        <!-- Kỹ năng -->
         <div class="bg-slate-900/50 p-6 rounded-xl">
-          <h2 class="text-2xl font-bold mb-4">Liên hệ</h2>
-          <p>📞 0976204408</p>
-          <p>✉️ daohongso2@gmail.com</p>
-          <p>📍 Đồng Nai</p>
-          <p>
-            🌐
-            <a
-              href="https://daominhhong.id.vn"
-              target="_blank"
-              class="underline"
-              >daominhhong.id.vn</a
+          <h2 class="text-2xl font-bold mb-4">Kỹ năng</h2>
+
+          <!-- HTML 90% -->
+          <div class="mb-5">
+            <div class="mb-1 text-sm text-gray-300">HTML</div>
+            <div
+              class="w-full h-2 bg-slate-700/70 rounded-full overflow-hidden"
+              x-data="progress(90)"
+              x-init="observe($el)"
             >
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills" class="py-20">
-      <div class="container mx-auto px-6">
-        <h2 class="text-2xl font-bold mb-8">Kỹ năng</h2>
-
-        <!-- HTML 90% -->
-        <div class="mb-5">
-          <div class="mb-1 text-sm text-gray-300">HTML</div>
-          <div
-            class="w-full h-2 bg-slate-700/70 rounded-full overflow-hidden"
-            x-data="progress(90)"
-            x-init="observe($el)"
-          >
-            <div
-              class="h-full bg-gradient-to-r from-brand to-accent rounded-full transition-[width] duration-1000 ease-out"
-              :style="`width:${width}%`"
-            ></div>
+              <div
+                class="h-full bg-gradient-to-r from-brand to-accent rounded-full transition-[width] duration-1000 ease-out"
+                :style="`width:${width}%`"
+              ></div>
+            </div>
           </div>
-        </div>
 
-        <!-- CSS 80% -->
-        <div class="mb-5">
-          <div class="mb-1 text-sm text-gray-300">CSS</div>
-          <div
-            class="w-full h-2 bg-slate-700/70 rounded-full overflow-hidden"
-            x-data="progress(80)"
-            x-init="observe($el)"
-          >
+          <!-- CSS 80% -->
+          <div class="mb-5">
+            <div class="mb-1 text-sm text-gray-300">CSS</div>
             <div
-              class="h-full bg-gradient-to-r from-brand to-accent rounded-full transition-[width] duration-1000 ease-out"
-              :style="`width:${width}%`"
-            ></div>
+              class="w-full h-2 bg-slate-700/70 rounded-full overflow-hidden"
+              x-data="progress(80)"
+              x-init="observe($el)"
+            >
+              <div
+                class="h-full bg-gradient-to-r from-brand to-accent rounded-full transition-[width] duration-1000 ease-out"
+                :style="`width:${width}%`"
+              ></div>
+            </div>
           </div>
-        </div>
 
-        <!-- JavaScript 70% -->
-        <div class="mb-5">
-          <div class="mb-1 text-sm text-gray-300">JavaScript</div>
-          <div
-            class="w-full h-2 bg-slate-700/70 rounded-full overflow-hidden"
-            x-data="progress(70)"
-            x-init="observe($el)"
-          >
+          <!-- JavaScript 70% -->
+          <div class="mb-5">
+            <div class="mb-1 text-sm text-gray-300">JavaScript</div>
             <div
-              class="h-full bg-gradient-to-r from-brand to-accent rounded-full transition-[width] duration-1000 ease-out"
-              :style="`width:${width}%`"
-            ></div>
+              class="w-full h-2 bg-slate-700/70 rounded-full overflow-hidden"
+              x-data="progress(70)"
+              x-init="observe($el)"
+            >
+              <div
+                class="h-full bg-gradient-to-r from-brand to-accent rounded-full transition-[width] duration-1000 ease-out"
+                :style="`width:${width}%`"
+              ></div>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
     <!-- EXPERIENCE / TIMELINE (infographic style) -->
     <section id="experience" class="py-20 bg-slate-800">
       <div class="container mx-auto px-6">
@@ -473,38 +458,59 @@
     </section>
 
     <!-- CONTACT -->
-    <section id="contact" class="py-20">
-      <div class="container mx-auto px-6 max-w-xl">
-        <h2 class="text-2xl font-bold mb-6">Kết nối & Trao đổi</h2>
-        <form
-          class="space-y-4"
-          @submit.prevent="alert('Đã nhận thông tin! (demo)')"
-        >
-          <input
-            type="text"
-            placeholder="Họ và tên"
-            class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
-            required
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
-            required
-          />
-          <textarea
-            rows="4"
-            placeholder="Nội dung liên hệ..."
-            class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
-            required
-          ></textarea>
-          <button
-            type="submit"
-            class="bg-gradient-to-r from-brand to-accent text-slate-900 px-6 py-3 rounded-xl font-bold"
+    <section id="contact" class="py-20 bg-slate-800">
+      <div class="container mx-auto px-6 grid md:grid-cols-2 gap-10">
+        <!-- Cột trái: Form -->
+        <div>
+          <h2 class="text-2xl font-bold mb-6">Kết nối & Trao đổi</h2>
+          <form
+            class="space-y-4"
+            @submit.prevent="alert('Đã nhận thông tin! (demo)')"
           >
-            Gửi
-          </button>
-        </form>
+            <input
+              type="text"
+              placeholder="Họ và tên"
+              class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
+              required
+            />
+            <textarea
+              rows="4"
+              placeholder="Nội dung liên hệ..."
+              class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
+              required
+            ></textarea>
+            <button
+              type="submit"
+              class="bg-gradient-to-r from-brand to-accent text-slate-900 px-6 py-3 rounded-xl font-bold"
+            >
+              Gửi
+            </button>
+          </form>
+        </div>
+
+        <!-- Cột phải: Thông tin liên hệ -->
+        <div class="bg-slate-900/50 p-6 rounded-xl">
+          <h2 class="text-2xl font-bold mb-4">Liên hệ</h2>
+          <p>📞 0976204408</p>
+          <p>✉️ daohongso2@gmail.com</p>
+          <p>📍 Đồng Nai</p>
+          <p>
+            🌐
+            <a
+              href="https://daominhhong.id.vn"
+              target="_blank"
+              class="underline"
+            >
+              daominhhong.id.vn
+            </a>
+          </p>
+        </div>
       </div>
     </section>
 
