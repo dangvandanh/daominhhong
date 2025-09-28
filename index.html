@@ -433,9 +433,17 @@
                 :key="i"
               >
                 <div class="min-w-full">
-                  <img
+                  <!-- <img
                     :src="'assets/img/'+img"
                     class="w-full h-64 md:h-80 lg:h-96 object-cover rounded-xl shadow"
+                  /> -->
+                  <!-- <img
+                    :src="'assets/img/'+img"
+                    class="w-full h-80 object-cover rounded-xl shadow"
+                  /> -->
+                  <img
+                    :src="'assets/img/'+img"
+                    class="mx-auto h-80 w-full max-w-4xl object-cover rounded-xl shadow"
                   />
                 </div>
               </template>
@@ -461,38 +469,74 @@
     <section id="contact" class="py-20 bg-slate-800">
       <div class="container mx-auto px-6 grid md:grid-cols-2 gap-10">
         <!-- Cột trái: Form -->
-        <div>
-          <h2 class="text-2xl font-bold mb-6">Kết nối & Trao đổi</h2>
-          <form
-            class="space-y-4"
-            @submit.prevent="alert('Đã nhận thông tin! (demo)')"
+        <form
+          x-data="contactForm('https://formspree.io/f/mzzjdwyk')"
+          x-ref="form"
+          @submit.prevent="submit"
+          class="space-y-4"
+        >
+          <!-- honeypot chống bot -->
+          <input
+            type="text"
+            name="_gotcha"
+            tabindex="-1"
+            autocomplete="off"
+            class="hidden"
+          />
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Họ và tên"
+            class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
+            required
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
+            required
+          />
+
+          <textarea
+            rows="4"
+            name="message"
+            placeholder="Nội dung liên hệ..."
+            class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
+            required
+          ></textarea>
+
+          <!-- Tuỳ chọn: tiêu đề email -->
+          <input
+            type="hidden"
+            name="_subject"
+            value="Liên hệ từ daominhhong.id.vn"
+          />
+          <!-- Tuỳ chọn: trang cảm ơn nếu muốn redirect -->
+          <!-- <input type="hidden" name="_redirect" value="https://daominhhong.id.vn/thanks.html" /> -->
+
+          <button
+            type="submit"
+            class="bg-gradient-to-r from-brand to-accent text-slate-900 px-6 py-3 rounded-xl font-bold disabled:opacity-60"
+            :disabled="loading"
           >
-            <input
-              type="text"
-              placeholder="Họ và tên"
-              class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
-              required
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
-              required
-            />
-            <textarea
-              rows="4"
-              placeholder="Nội dung liên hệ..."
-              class="w-full p-3 rounded-lg bg-slate-900/50 border border-slate-700"
-              required
-            ></textarea>
-            <button
-              type="submit"
-              class="bg-gradient-to-r from-brand to-accent text-slate-900 px-6 py-3 rounded-xl font-bold"
+            <span x-show="!loading">Gửi</span>
+            <span x-show="loading">Đang gửi...</span>
+          </button>
+
+          <!-- Thông báo -->
+          <p x-show="ok" class="text-green-400">
+            Đã gửi thành công! Mình sẽ phản hồi sớm nhất.
+          </p>
+          <p x-show="error" class="text-red-400">
+            Gửi thất bại. Vui lòng thử lại hoặc email:
+            <a class="underline" href="mailto:daohongso2@gmail.com"
+              >daohongso2@gmail.com</a
             >
-              Gửi
-            </button>
-          </form>
-        </div>
+          </p>
+        </form>
 
         <!-- Cột phải: Thông tin liên hệ -->
         <div class="bg-slate-900/50 p-6 rounded-xl">
@@ -604,6 +648,33 @@
               { threshold: 0.6 }
             );
             io.observe(el);
+          },
+        }));
+        Alpine.data("contactForm", (endpoint) => ({
+          loading: false,
+          ok: false,
+          error: false,
+          async submit() {
+            this.loading = true;
+            this.ok = false;
+            this.error = false;
+            try {
+              const res = await fetch(endpoint, {
+                method: "POST",
+                headers: { Accept: "application/json" },
+                body: new FormData(this.$refs.form),
+              });
+              if (res.ok) {
+                this.ok = true;
+                this.$refs.form.reset();
+              } else {
+                this.error = true;
+              }
+            } catch (e) {
+              this.error = true;
+            } finally {
+              this.loading = false;
+            }
           },
         }));
       });
