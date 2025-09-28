@@ -27,3 +27,45 @@
     opacity: 0.75;
   }
 }
+
+@layer components {
+  /* Trục timeline giữa */
+  .tl {
+    @apply relative;
+  }
+  .tl::before {
+    content: "";
+    @apply absolute top-0 left-1/2 -translate-x-1/2 h-full w-1 bg-white/10 rounded;
+  }
+
+  /* Thẻ sự kiện */
+  .tl-card {
+    @apply relative bg-white/5 border border-white/10 rounded-2xl p-5 shadow;
+  }
+
+  /* Dot phát sáng trên trục */
+  .tl-dot {
+    @apply absolute top-6 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full 
+           bg-gradient-to-r from-brand to-accent ring-4 ring-slate-900;
+  }
+
+  /* Đường nối từ trục vào card (desktop) */
+  .tl-line-left {
+    @apply hidden lg:block absolute top-8 right-1/2 w-10 h-[2px] bg-white/20;
+  }
+  .tl-line-right {
+    @apply hidden lg:block absolute top-8 left-1/2 w-10 h-[2px] bg-white/20;
+  }
+
+  /* Badge năm */
+  .year-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full 
+           bg-white text-slate-900 text-sm font-extrabold;
+  }
+
+  /* Icon góc nhỏ */
+  .icon-badge {
+    @apply grid place-items-center w-7 h-7 rounded-full 
+           bg-gradient-to-r from-brand to-accent text-slate-900 font-black;
+  }
+}
